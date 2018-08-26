@@ -1,0 +1,24 @@
+{
+  "name": "evently-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "pm2": "pm2 start src/index.js --name evently-discord-bot --watch",
+    "forkill:windows": "taskkill /f /im node.exe"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "config": "^1.25.1",
+    "cors": "^2.8.1",
+    "discord.js": "11.1.0",
+    "eventlyjs": "^1.0.1",
+    "express": "^4.15.3",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  }
+}
