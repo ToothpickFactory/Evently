@@ -1,3 +1,3 @@
-# evently-server
-Pretty API Documentation
-docs.evently.apiary.io
+# API Server
+
+Will be aWeSoMe!
