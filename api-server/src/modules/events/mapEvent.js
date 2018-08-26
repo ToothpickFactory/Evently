@@ -15,7 +15,7 @@ function mapEvent(rawEvent, id) {
   event.title = rawEvent.title;
   event.maxSlots = rawEvent.maxSlots || 10;
   event.startTime = rawEvent.startTime || Date.now() + 300000;
-  event.participants = rawEvent.participants || [];
+  event.slots = rawEvent.slots || [];
   event.tags = (rawEvent.tags || []).map(tag => tag.trim());
   event.webhook = rawEvent.webhook;
   event.owner = rawEvent.owner ? buildOwner(rawEvent.owner) : null;

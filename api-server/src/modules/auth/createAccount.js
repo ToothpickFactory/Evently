@@ -1,22 +1,28 @@
-const shortid       	= require('shortid');
-const crypto			= require('crypto');
-const appRootDir    	= require('app-root-dir').get();
-const validateAccount 	= require(appRootDir + "/src/schemas/account/validator");
-const Mongo         	= require(appRootDir + '/src/connections/mongo');
+const shortid = require("shortid");
+const crypto = require("crypto");
 
-async function createAccount (email, password) {
-	let db = await Mongo.getDB();
-	let result = validateAccount({email, password});
+const validateAccount = require(appRoot + "/schemas/account/validator");
+const Mongo = require(appRoot + "/connections/mongo");
 
-	if(result.errors.length) return Promise.reject(result.errors);
+async function createAccount(email, password) {
+  let db = await Mongo.getDB();
+  let result = validateAccount({
+    email,
+    password
+  });
 
-	let account = {
-		_id: shortid.generate(),
-		email: email.toUpperCase(),
-		password: crypto.createHash("SHA1").update(password).digest('hex')
-	}
+  if (result.errors.length) return Promise.reject(result.errors);
 
-	return db.collection('accounts').insert(account);
+  let account = {
+    _id: shortid.generate(),
+    email: email.toUpperCase(),
+    password: crypto
+      .createHash("SHA1")
+      .update(password)
+      .digest("hex")
+  };
+
+  return db.collection("accounts").insert(account);
 }
 
 module.exports = createAccount;
