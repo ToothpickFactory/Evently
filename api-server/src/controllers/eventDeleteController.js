@@ -1,4 +1,5 @@
 const EventsModule = require(appRoot + "/modules/events");
+const codes = require(appRoot + '/modules/codes');
 
 module.exports = (req, res) => {
 	let id = req.params.id;
@@ -6,6 +7,6 @@ module.exports = (req, res) => {
 	EventsModule.deleteEvent(id, clientId)
 		.then(() => res.send())
 		.catch(err => {
-			errRes(err, res)
+			codes.errRes(err, res)
 		})
 }
