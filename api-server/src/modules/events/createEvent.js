@@ -1,16 +1,21 @@
 const validateEvent = require(appRoot + "/schemas/event/validator");
-const Mongo = require(appRoot + "/connections/mongo");
+const db = require(appRoot + "/connections/firebase").db;
 const mapEvent = require("./mapEvent");
 
-module.exports = async function(event, clientId) {
-  let db = await Mongo.getDB();
+module.exports = async function (event, clientId) {
   event.clientId = clientId;
   let newEvent = mapEvent(event);
   let result = validateEvent(newEvent);
   if (result.errors.length) {
     return Promise.reject(result.errors);
   } else {
-    let dbRes = await db.collection("events").insert(newEvent);
-    return dbRes.ops[0];
+    try {
+      await db.collection("events").doc(newEvent._id).set(newEvent);
+      return {
+        eventId: newEvent._id
+      };
+    } catch (err) {
+      return Promise.reject(err);
+    }
   }
 };

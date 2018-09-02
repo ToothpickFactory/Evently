@@ -3,6 +3,9 @@
 	"mongo": {
 		"db": "mongodb://localhost/evently"
 	},
+	"firebase": {
+		"databaseURL": ""
+	},
 	"jwt": {
 		"key": ""
 	}

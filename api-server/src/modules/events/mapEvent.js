@@ -17,7 +17,7 @@ function mapEvent(rawEvent, id) {
   event.startTime = rawEvent.startTime || Date.now() + 300000;
   event.slots = rawEvent.slots || [];
   event.tags = (rawEvent.tags || []).map(tag => tag.trim());
-  event.webhook = rawEvent.webhook;
+  event.webhook = rawEvent.webhook || "";
   event.owner = rawEvent.owner ? buildOwner(rawEvent.owner) : null;
 
   return event;

@@ -1,3 +1,6 @@
+# Firebase Key
+eventlyFirebaseKey.json
+
 # Config
 config/*
 !config/example.json
