@@ -1,32 +1,42 @@
 const config = require("config");
-
-const Mongo = require(appRoot + "/connections/mongo");
+const db = require(appRoot + "/connections/firebase").db;
 const codes = require(appRoot + "/modules/codes");
-const crypto = require("crypto");
+const passwordEncrypt = require('./passwordEncrypt');
 const jwt = require("jsonwebtoken");
 
 async function credentialExchange(email, password) {
-  let db = await Mongo.getDB();
-  if (!email || !password) return Promise.reject(codes.credentialsRequired());
-  let account = {
-    email: email.toUpperCase(),
-    password: crypto
-      .createHash("SHA1")
-      .update(password)
-      .digest("hex")
+  if (!email || !password) throw codes.credentialsRequired();
+  email = email.toUpperCase();
+  password = passwordEncrypt(password);
+  let account;
+
+  try {
+    const accountsRes = await db.collection("accounts")
+      .where('email', '==', email)
+      .where('password', '==', password)
+      .get();
+
+    const accounts = [];
+    accountsRes.forEach(accountRes => accounts.push(accountRes.data()));
+    account = accounts[0];
+  } catch (err) {
+    throw codes.serverError(err);
+  }
+
+  if (!account) throw codes.userNotFound();
+
+  const tokenFields = {
+    uid: account.uid,
+    clientId: account.clientId
   };
 
-  return db
-    .collection("accounts")
-    .findOne(account, { _id: 1 })
-    .then(dbRes => {
-      if (!dbRes) return Promise.reject(codes.userNotFound());
-      let token = jwt.sign(dbRes, config.jwt.key, { noTimestamp: true });
-      return { token };
-    })
-    .catch(err => {
-      return Promise.reject(err);
-    });
+  const token = jwt.sign(tokenFields, config.jwt.key, {
+    noTimestamp: true
+  });
+
+  return {
+    token
+  };
 }
 
 module.exports = credentialExchange;

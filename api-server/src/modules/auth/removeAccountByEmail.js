@@ -1,8 +1,13 @@
-const Mongo = require(appRoot + "/connections/mongo");
+const db = require(appRoot + "/connections/firebase").db;
 
 async function removeAccountByEmail(email) {
-  let db = await Mongo.getDB();
-  return db.collection("accounts").remove({ email: email.toUpperCase() });
+  try {
+    email = email.toUpperCase();
+    const [account] = await db.collection("accounts").where("email", "==", email).get();
+    account.delete();
+  } catch (err) {
+    throw codes.serverError(err);
+  }
 }
 
 module.exports = removeAccountByEmail;

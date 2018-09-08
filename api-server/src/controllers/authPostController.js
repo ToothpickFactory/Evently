@@ -7,8 +7,5 @@ module.exports = (req, res) => {
 
 	AuthModule.createAccount(email, password)
 		.then(() => res.send())
-		.catch(err => {
-			let msg = err.code === 11000 ? 'Account Already Exists' : 'Something bad has happened';
-			codes.errRes(msg, res)
-		})
+		.catch(err => codes.errRes(err, res))
 }

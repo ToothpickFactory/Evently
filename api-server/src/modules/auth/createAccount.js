@@ -1,28 +1,30 @@
 const shortid = require("shortid");
-const crypto = require("crypto");
-
+const passwordEncrypt = require('./passwordEncrypt');
+const db = require(appRoot + "/connections/firebase").db;
 const validateAccount = require(appRoot + "/schemas/account/validator");
-const Mongo = require(appRoot + "/connections/mongo");
+const findAccountByEmail = require('./findAccountByEmail');
+const codes = require(appRoot + "/modules/codes");
 
 async function createAccount(email, password) {
-  let db = await Mongo.getDB();
-  let result = validateAccount({
+  const result = validateAccount({
     email,
     password
   });
+  if (result.errors.length) throw codes.malformedRequest(result.errors);
 
-  if (result.errors.length) return Promise.reject(result.errors);
+  email = email.toUpperCase();
+  password = passwordEncrypt(password);
 
-  let account = {
-    _id: shortid.generate(),
-    email: email.toUpperCase(),
-    password: crypto
-      .createHash("SHA1")
-      .update(password)
-      .digest("hex")
-  };
+  if (await findAccountByEmail(email)) throw codes.emailTaken();
 
-  return db.collection("accounts").insert(account);
+  const uid = shortid.generate();
+  const clientId = shortid.generate();
+  return db.collection("accounts").doc(uid).set({
+    uid,
+    clientId,
+    email,
+    password
+  });
 }
 
 module.exports = createAccount;

@@ -7,7 +7,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const Mongo = require('./connections/mongo');
 const api = require('./api');
 const crons = require('./crons');
 
@@ -17,15 +16,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-Mongo.getDB()
-	.then(() => {
-		api(app);
-		crons();
-		app.listen(config.port, () => {
-			console.log(`Evently running on port: ${config.port}`)
-		});
-	})
-	.catch((err) => {
-		console.log(err)
-		console.log('Server was unable to start');
-	})
+api(app);
+
+crons();
+
+app.listen(config.port, () => console.log(`Evently running on port: ${config.port}`));
