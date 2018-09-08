@@ -1,4 +1,5 @@
-const AuthMiddle = require(appRoot + "/middleware/authMiddle");
+const authMiddle = require(appRoot + "/middleware/authMiddle");
+const eventPermission = require(appRoot + "/middleware/eventPermission");
 
 const authGetController = require(appRoot + '/controllers/authGetController');
 const authPostController = require(appRoot + '/controllers/authPostController');
@@ -15,15 +16,15 @@ module.exports = function (app) {
 	app.get('/auth', authGetController);
 	app.post('/auth', authPostController);
 
-	app.use('/events', AuthMiddle);
+	app.use('/events', authMiddle);
 	app.get('/events', eventsGetController);
 	app.post('/events', eventsPostController);
 
-	app.delete('/events/:id', eventDeleteController);
-	app.get('/events/:id', eventGetController);
-	app.put('/events/:id', eventPutController);
+	app.delete('/events/:id', eventPermission, eventDeleteController);
+	app.get('/events/:id', eventPermission, eventGetController);
+	app.put('/events/:id', eventPermission, eventPutController);
 
-	app.delete('/events/:id/slots/:userId', slotsDeleteController);
-	app.get('/events/:id/slots', slotsGetController);
-	app.post('/events/:id/slots', slotsPostController);
+	app.delete('/events/:id/slots/:userId', eventPermission, slotsDeleteController);
+	app.get('/events/:id/slots', eventPermission, slotsGetController);
+	app.post('/events/:id/slots', eventPermission, slotsPostController);
 }

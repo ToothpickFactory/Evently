@@ -2,10 +2,9 @@ const EventsModule = require(appRoot + "/modules/events");
 const codes = require(appRoot + '/modules/codes');
 
 module.exports = (req, res) => {
-	let eventId = req.params.id;
-	let userId = req.params.userId;
-	let clientId = req.auth._id;
-	EventsModule.leaveEvent(eventId, userId, clientId)
-		.then(response => res.send(response))
+	const event = req.event;
+	const userId = req.params.userId;
+	EventsModule.leaveEvent(event, userId)
+		.then(() => res.send())
 		.catch(err => codes.errRes(err, res))
 }

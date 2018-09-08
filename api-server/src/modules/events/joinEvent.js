@@ -1,45 +1,34 @@
-const Mongo = require(appRoot + "/connections/mongo");
+const db = require(appRoot + "/connections/firebase").db;
+const firestore = require("firebase-admin").firestore;
 const personValidator = require(appRoot + "/schemas/person/validator");
 const codes = require("../codes");
 
-async function doJoin(_id, newSlot, clientId) {
-  let db = await Mongo.getDB();
-  let query = {
-    _id,
-    clientId,
-    "slots.id": {
-      $ne: newSlot.id
-    }
-  };
-  let sort = [];
-  let update = {
-    $push: {
-      slots: newSlot
-    }
-  };
-  let options = {
-    new: true
-  };
-  let dbRes = await db
-    .collection("events")
-    .findAndModify(query, sort, update, options);
+async function joinEvent(event, slot) {
+  const slots = event.slots;
 
-  if (dbRes.lastErrorObject.updatedExisting && dbRes.lastErrorObject.n) {
-    return dbRes.value;
-  } else if (!dbRes.lastErrorObject.updatedExisting) {
-    return Promise.reject(codes.userInEvent());
-  }
-}
-
-async function joinEvent(_id, slot, clientId) {
-  let newSlot = {
+  const newSlot = {
     id: slot.id || slot.name.toUpperCase(),
     name: slot.name
-  };
-  let result = personValidator(newSlot);
-  return result.errors.length
-    ? Promise.reject(result.errors)
-    : doJoin(_id, newSlot, clientId);
+  }
+
+  const result = personValidator(newSlot);
+
+  if (result.errors.length) throw Error(result.errors);
+
+  if (slots.some(slot => slot.id === newSlot.id)) {
+    throw codes.userInEvent();
+  }
+
+  try {
+    await db.collection("events").doc(event._id).update({
+      slots: firestore.FieldValue.arrayUnion(newSlot)
+    });
+    return {
+      slotId: newSlot.id
+    };
+  } catch (err) {
+    throw codes.serverError(err);
+  }
 }
 
 module.exports = joinEvent;

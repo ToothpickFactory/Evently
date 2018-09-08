@@ -1,26 +1,18 @@
-const shortid = require("shortid");
+const db = require(appRoot + "/connections/firebase").db;
+const codes = require("../codes");
 const validateEvent = require(appRoot + "/schemas/event/validator");
-const Mongo = require(appRoot + "/connections/mongo");
 const mapEvent = require("./mapEvent");
 
-async function doUpdate(_id, updatedEvent, clientId) {
-  let db = await Mongo.getDB();
-  let query = { _id, clientId };
-  let sort = [];
-  let update = updatedEvent;
-  let options = { new: true };
-  let dbRes = await db
-    .collection("events")
-    .findAndModify(query, sort, update, options);
-  return dbRes.value;
-}
-
-async function updateEvent(_id, event, clientId) {
-  let updatedEvent = mapEvent(event, _id);
-  let result = validateEvent(updatedEvent);
-  return result.errors.length
-    ? Promise.reject(result.errors)
-    : doUpdate(_id, updatedEvent, clientId);
+async function updateEvent(event, updatedEvent) {
+  const updatedEvent = mapEvent(updatedEvent, _id);
+  const result = validateEvent(updatedEvent);
+  if (result.errors.length) throw result.errors;
+  try {
+    db.collection("events").doc(event._id).update(updatedEvent);
+  } catch (err) {
+    console.log(err)
+    throw codes.serverError(err);
+  }
 }
 
 module.exports = updateEvent;

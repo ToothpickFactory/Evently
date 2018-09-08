@@ -1,16 +1,13 @@
-const Mongo = require(appRoot + "/connections/mongo");
+const db = require(appRoot + "/connections/firebase").db;
 const callHook = require(appRoot + "/modules/webhooks/callHook");
+const codes = require(appRoot + '/modules/codes');
 
-module.exports = async function(_id, clientId) {
-  let db = await Mongo.getDB();
-  let query = { _id, clientId };
-  let sort = [];
-  let update = { remove: true };
-  let options = { new: false };
-
-  let DBRes = await db
-    .collection("events")
-    .findAndModify(query, sort, update, options);
-  callHook("EVENT_REMOVED", DBRes.value);
-  return DBRes;
+module.exports = async function (event) {
+  try {
+    await db.collection("events").doc(event._id).delete();
+    callHook("EVENT_REMOVED", event);
+    return;
+  } catch (err) {
+    throw codes.serverError(err);
+  }
 };

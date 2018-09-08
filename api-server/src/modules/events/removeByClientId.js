@@ -1,8 +1,13 @@
-const Mongo = require(appRoot + "/connections/mongo");
+const db = require(appRoot + "/connections/firebase").db;
+const codes = require("../codes");
 
 async function removeByClientId(clientId) {
-  let db = await Mongo.getDB();
-  return db.collection("events").deleteMany({ clientId });
+  try {
+    const eventsRef = await db.collection("events").where("clientId", "==", clientId).get();
+    eventsRef.docs.forEach(event => event.delete());
+  } catch (err) {
+    throw codes.serverError(err);
+  }
 }
 
 module.exports = removeByClientId;

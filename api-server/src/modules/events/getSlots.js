@@ -1,8 +1,5 @@
-const Mongo = require(appRoot + "/connections/mongo");
+const db = require(appRoot + "/connections/firebase").db;
 
-module.exports = async function(_id, clientId) {
-  let db = await Mongo.getDB();
-  return db
-    .collection("events")
-    .findOne({ _id, clientId }, { _id: 0, slots: 1 });
+module.exports = async function (event) {
+  return event.slots;
 };
