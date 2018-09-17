@@ -1,8 +1,10 @@
+// Source .env to process.env
+require('dotenv').config();
+
 // Sets Global App Root
 const path = require('path');
 global.appRoot = path.resolve(__dirname);
 
-const config = require("config");
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
@@ -20,4 +22,4 @@ api(app);
 
 crons();
 
-app.listen(config.port, () => console.log(`Evently running on port: ${config.port}`));
+app.listen(process.env.PORT, () => console.log(`Evently running on port: ${process.env.port}`));

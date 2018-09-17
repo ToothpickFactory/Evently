@@ -1,4 +1,3 @@
-const config = require("config");
 const db = require(appRoot + "/connections/firebase").db;
 const codes = require(appRoot + "/modules/codes");
 const passwordEncrypt = require('./passwordEncrypt');
@@ -30,7 +29,7 @@ async function credentialExchange(email, password) {
     clientId: account.clientId
   };
 
-  const token = jwt.sign(tokenFields, config.jwt.key, {
+  const token = jwt.sign(tokenFields, process.env.JWT_KEY, {
     noTimestamp: true
   });
 

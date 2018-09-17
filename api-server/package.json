@@ -7,10 +7,11 @@
     "start": "pm2 start src/index.js --name evently-server --watch",
     "stop": "pm2 stop evently-server",
     "logs": "pm2 logs evently-server",
+    "deploy": "./deploy.sh",
     "test": "mocha ./src/**/test.js"
   },
-  "engines" : {
-    "node" : "8"
+  "engines": {
+    "node": "8"
   },
   "author": "Austin Lovell",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "body-parser": "^1.17.1",
     "config": "^1.25.1",
     "cors": "^2.8.1",
+    "dotenv": "^6.0.0",
     "express": "^4.15.0",
     "firebase-admin": "^6.0.0",
     "jsonschema": "^1.1.1",

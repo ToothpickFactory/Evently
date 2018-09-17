@@ -1,9 +1,0 @@
-{
-	"port": 8001,
-	"firebase": {
-		"databaseURL": ""
-	},
-	"jwt": {
-		"key": ""
-	}
-}

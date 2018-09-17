@@ -1,14 +1,19 @@
 # evently-server
-node version: 8.5.0
 
-Install PM2 globally
-npm install pm2 -g
+## Global Setups
++ node version: 8.5.0
++ npm install pm2 -g
 
-Add firebase config
-Frebase > Project Settings > Service Accounts > Generate New Private Key
-Renmae file to eventlyFirebaseKey.json
-Place in the root of api-server/
+## Config
++ copy .env.example to .env
++ fill in proper keys
++ + EVENTLY_PATH= path to the evently project on the remote server
++ + IP_ADDRESS= IP address of remote server
++ + PORT= port the app will be running on
++ + DATABASE_URL= firebase database url
++ + JWT_KEY= secrect key for JWT
 
-Config
-copy exmaple.json to development.json
-fill in proper keys
+## Add firebase config
++ Frebase > Project Settings > Service Accounts > Generate New Private Key
++ Rename file to eventlyFirebaseKey.json
++ Place in the root of api-server/
