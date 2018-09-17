@@ -1,15 +1,18 @@
 {
   "name": "evently",
   "version": "1.0.0",
-  "description": "",
+  "description": "API server for Evently",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "test": "mocha ./src/**/test.js",
-    "pm2": "pm2 start src/index.js --name evently-server --watch",
-    "db": "sudo mongod"
+    "start": "pm2 start src/index.js --name evently-server --watch",
+    "stop": "pm2 stop evently-server",
+    "logs": "pm2 logs evently-server",
+    "test": "mocha ./src/**/test.js"
   },
-  "author": "",
+  "engines" : {
+    "node" : "8"
+  },
+  "author": "Austin Lovell",
   "license": "ISC",
   "dependencies": {
     "app-root-dir": "^1.0.2",
@@ -21,9 +24,7 @@
     "firebase-admin": "^6.0.0",
     "jsonschema": "^1.1.1",
     "jsonwebtoken": "^7.4.3",
-    "mongodb": "^2.2.31",
     "node-schedule": "^1.2.3",
-    "promised-mongo": "^1.2.0",
     "request": "^2.81.0",
     "shortid": "^2.2.8"
   },

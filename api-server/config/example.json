@@ -1,8 +1,5 @@
 {
-	"port": 8000,
-	"mongo": {
-		"db": "mongodb://localhost/evently"
-	},
+	"port": 8001,
 	"firebase": {
 		"databaseURL": ""
 	},
