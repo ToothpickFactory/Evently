@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "1de0fee8-32d4-e796-c124-3f9284061d50",
+		"name": "Evently.me",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Event",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Dont't Do Drugs\",\n    \"startTime\": 852963741,\n    \"owner\": {\n      \"name\": \"mrMan\"\n    },\n    \"tags\": [\"dont\", \"do\", \"drugs\"]\n}"
+				},
+				"url": {
+					"raw": "{{Domain}}:{{Port}}/events",
+					"host": [
+						"{{Domain}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Event",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Dont't Do Drugs...often\",\n    \"startTime\": 852963741,\n    \"owner\": {\n      \"name\": \"mrMan\"\n    },\n    \"tags\": [\"dont\", \"do\", \"drugs\"]\n}"
+				},
+				"url": {
+					"raw": "{{Domain}}:{{Port}}/events/qweqwe",
+					"host": [
+						"{{Domain}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"events",
+						"qweqwe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Events",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{Domain}}:{{Port}}/events",
+					"host": [
+						"{{Domain}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Event",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{Domain}}:{{Port}}/events/A31DaOXC1",
+					"protocol": "http",
+					"host": [
+						"{{Domain}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"events",
+						"A31DaOXC1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Event",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{Domain}}:{{Port}}/events/8mQBgYEKs",
+					"protocol": "http",
+					"host": [
+						"{{Domain}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"events",
+						"8mQBgYEKs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Slot",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"SkullcrUshEr4life\"\n}"
+				},
+				"url": {
+					"raw": "http://{{Domain}}:{{Port}}/events/A31DaOXC1/slots",
+					"protocol": "http",
+					"host": [
+						"{{Domain}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"events",
+						"A31DaOXC1",
+						"slots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Slot",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{Token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{Domain}}:{{Port}}/events/A31DaOXC1/slots/SkullcrUshEr4life",
+					"protocol": "http",
+					"host": [
+						"{{Domain}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"events",
+						"A31DaOXC1",
+						"slots",
+						"SkullcrUshEr4life"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"austin.d.lovell@gmail.com\",\n  \"password\": \"1q2w3e4r\"\n}"
+				},
+				"url": {
+					"raw": "http://{{Domain}}:{{Port}}/auth",
+					"protocol": "http",
+					"host": [
+						"{{Domain}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic YXVzdGluLmQubG92ZWxsQGdtYWlsLmNvbToxcTJ3M2U0cg=="
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{Domain}}:{{Port}}/auth",
+					"protocol": "http",
+					"host": [
+						"{{Domain}}"
+					],
+					"port": "{{Port}}",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
