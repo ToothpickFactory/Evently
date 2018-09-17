@@ -4,7 +4,9 @@
   "description": "API server for Evently",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start src/index.js --name evently-server --watch",
+    "start": "pm2 start src/index.js --name evently-server",
+    "watch": "pm2 start src/index.js --name evently-server --watch",
+    "reload": "pm2 reload evently-server",
     "stop": "pm2 stop evently-server",
     "logs": "pm2 logs evently-server",
     "deploy": "./deploy.sh",
