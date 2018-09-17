@@ -22,4 +22,4 @@ api(app);
 
 crons();
 
-app.listen(process.env.PORT, () => console.log(`Evently running on port: ${process.env.port}`));
+app.listen(process.env.PORT, () => console.log(`Evently running on port: ${process.env.PORT}`));

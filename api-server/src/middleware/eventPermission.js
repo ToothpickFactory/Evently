@@ -2,7 +2,7 @@ const EventsModule = require(appRoot + "/modules/events");
 const codes = require(appRoot + '/modules/codes');
 
 const eventPermission = async function (req, res, next) {
-	const clientId = req.auth._id;
+	const clientId = req.auth.clientId;
 	const eventId = req.params.id;
 
 	try {
