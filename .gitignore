@@ -1,6 +1,9 @@
 # Firebase Key
 eventlyFirebaseKey.json
 
+# SSL
+api-server/sslcert
+
 # Env
 .env
 
