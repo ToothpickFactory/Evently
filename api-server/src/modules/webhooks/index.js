@@ -1,1 +1,1 @@
-module.exports = require(process.cwd() + '/src/util/moduleBundler')(__dirname);
+module.exports = require(appRoot + '/util/moduleBundler')(__dirname);

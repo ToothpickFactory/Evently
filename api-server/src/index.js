@@ -13,6 +13,7 @@ const api = require('./api');
 const crons = require('./crons');
 
 app.use(cors());
+app.use(express.static('src/static'));
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
@@ -21,5 +22,4 @@ app.use(bodyParser.json());
 api(app);
 
 crons();
-
 app.listen(process.env.PORT, () => console.log(`Evently running on port: ${process.env.PORT}`));
