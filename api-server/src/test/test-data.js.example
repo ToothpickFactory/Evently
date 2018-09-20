@@ -1,0 +1,11 @@
+require('dotenv').config();
+
+module.exports = {
+	testUser: {
+		email: "",
+		password: ""
+	},
+	get url(){
+		return `${process.env.BASE_URL}:${process.env.PORT}`;
+	}
+}

@@ -13,6 +13,8 @@ const slotsGetController = require(appRoot + '/controllers/slotsGetController');
 const slotsPostController = require(appRoot + '/controllers/slotsPostController');
 
 module.exports = function (app) {
+	app.get('/', (req, res) => res.send('hello!'));
+
 	app.get('/auth', authGetController);
 	app.post('/auth', authPostController);
 
