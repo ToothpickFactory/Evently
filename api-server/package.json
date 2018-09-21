@@ -10,7 +10,7 @@
     "stop": "pm2 stop evently-server",
     "logs": "pm2 logs evently-server",
     "deploy": "./deploy.sh",
-    "test": "mocha ./src/test/apiTests/authPost.spec.js"
+    "test": "mocha ./src/test/apiTests/*.spec.js"
   },
   "engines": {
     "node": "8"

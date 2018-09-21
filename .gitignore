@@ -7,9 +7,6 @@ api-server/sslcert
 # Env
 .env
 
-# Test
-api-server/src/test/test-data.js
-
 # Logs
 logs
 *.log
