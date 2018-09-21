@@ -16,7 +16,7 @@ module.exports = {
 			title: "Test Event",
 			maxSlots: 10,
 			startTime: Date.now() + 300000,
-			owner: "TestUser",
+			owner: "Test User",
 			webhook: "http://myeventhook.com/webhook"
 		}
 	},

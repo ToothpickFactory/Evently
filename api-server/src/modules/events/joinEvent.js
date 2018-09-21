@@ -1,15 +1,13 @@
 const db = require(appRoot + "/connections/firebase").db;
+const slotPrevision = require("./slotPrevision");
 const firestore = require("firebase-admin").firestore;
 const personValidator = require(appRoot + "/schemas/person/validator");
 const codes = require("../codes");
 
 async function joinEvent(event, slot) {
   const slots = event.slots;
-
-  const newSlot = {
-    id: slot.id || slot.name.toUpperCase(),
-    name: slot.name
-  }
+  
+  const newSlot = slotPrevision(slot);
 
   const result = personValidator(newSlot);
 

@@ -4,11 +4,12 @@ const validateEvent = require(appRoot + "/schemas/event/validator");
 const mapEvent = require("./mapEvent");
 
 async function updateEvent(event, updatedEvent) {
-  const updatedEvent = mapEvent(updatedEvent, _id);
+  updatedEvent = mapEvent(updatedEvent);
   const result = validateEvent(updatedEvent);
   if (result.errors.length) throw result.errors;
   try {
-    db.collection("events").doc(event._id).update(updatedEvent);
+    await db.collection("events").doc(event._id).update(updatedEvent);
+    return updatedEvent;
   } catch (err) {
     console.log(err)
     throw codes.serverError(err);

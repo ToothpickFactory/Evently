@@ -1,16 +1,10 @@
 const shortid = require("shortid");
-
-function buildOwner(rawOwner) {
-  return {
-    id: rawOwner.id || rawOwner.name.toUpperCase(),
-    name: rawOwner.name
-  };
-}
+const slotPrevision = require("./slotPrevision");
 
 function mapEvent(rawEvent, id) {
   let event = {};
 
-  event._id = id || shortid.generate();
+  event._id = rawEvent._id || id || shortid.generate();
   event.clientId = rawEvent.clientId;
   event.title = rawEvent.title;
   event.maxSlots = rawEvent.maxSlots || 10;
@@ -18,7 +12,7 @@ function mapEvent(rawEvent, id) {
   event.slots = rawEvent.slots || [];
   event.tags = (rawEvent.tags || []).map(tag => tag.trim());
   event.webhook = rawEvent.webhook || "";
-  event.owner = rawEvent.owner ? buildOwner(rawEvent.owner) : null;
+  event.owner = rawEvent.owner ? slotPrevision(rawEvent.owner) : null;
 
   return event;
 }
