@@ -20,4 +20,12 @@ module.exports = {
 			webhook: "http://myeventhook.com/webhook"
 		}
 	},
+	user1: {
+		name: "Ricky Bobby",
+		id: "mrrick123"
+	},
+	user2: {
+		name: "Sir Test Alot",
+		id: "forTheWin123"
+	}
 }

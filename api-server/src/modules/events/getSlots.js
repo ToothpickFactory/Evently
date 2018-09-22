@@ -1,5 +1,5 @@
-const db = require(appRoot + "/connections/firebase").db;
-
-module.exports = async function (event) {
+async function getSlots(event) {
   return event.slots;
 };
+
+module.exports = getSlots;
