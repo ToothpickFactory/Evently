@@ -1,26 +1,21 @@
 {
-  "name": "@stencil/starter",
+  "name": "@ionic/pwa-toolkit",
   "private": true,
   "version": "0.0.1",
-  "description": "Stencil App Starter",
+  "author": "Ionic Team",
+  "description": "Ionic PWA Toolkit",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
-    "build": "stencil build --prerender",
+    "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll"
+    "test.watch": "stencil test --spec --e2e --watch"
   },
   "dependencies": {
-    "@stencil/core": "~0.14.1",
-    "@stencil/router": "~0.3.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ionic-team/stencil-app-starter.git"
-  },
-  "author": "Ionic Team",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ionic-team/stencil"
-  },
-  "homepage": "https://github.com/ionic-team/stencil"
+    "@ionic/core": "4.0.0-beta.13",
+    "@stencil/core": "0.14.0-4"
+  }
 }

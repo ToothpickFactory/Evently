@@ -7,11 +7,8 @@
 
 import '@stencil/core';
 
-import '@stencil/router';
-import '@stencil/state-tunnel';
-import {
-  MatchResults,
-} from '@stencil/router';
+import '@ionic/core';
+import 'ionicons';
 
 
 export namespace Components {
@@ -20,14 +17,17 @@ export namespace Components {
   interface AppHomeAttributes extends StencilHTMLAttributes {}
 
   interface AppProfile {
-    'match': MatchResults;
+    'name': string;
   }
   interface AppProfileAttributes extends StencilHTMLAttributes {
-    'match'?: MatchResults;
+    'name'?: string;
   }
 
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
+
+  interface EventForm {}
+  interface EventFormAttributes extends StencilHTMLAttributes {}
 }
 
 declare global {
@@ -35,12 +35,14 @@ declare global {
     'AppHome': Components.AppHome;
     'AppProfile': Components.AppProfile;
     'AppRoot': Components.AppRoot;
+    'EventForm': Components.EventForm;
   }
 
   interface StencilIntrinsicElements {
     'app-home': Components.AppHomeAttributes;
     'app-profile': Components.AppProfileAttributes;
     'app-root': Components.AppRootAttributes;
+    'event-form': Components.EventFormAttributes;
   }
 
 
@@ -62,16 +64,24 @@ declare global {
     new (): HTMLAppRootElement;
   };
 
+  interface HTMLEventFormElement extends Components.EventForm, HTMLStencilElement {}
+  var HTMLEventFormElement: {
+    prototype: HTMLEventFormElement;
+    new (): HTMLEventFormElement;
+  };
+
   interface HTMLElementTagNameMap {
     'app-home': HTMLAppHomeElement
     'app-profile': HTMLAppProfileElement
     'app-root': HTMLAppRootElement
+    'event-form': HTMLEventFormElement
   }
 
   interface ElementTagNameMap {
     'app-home': HTMLAppHomeElement;
     'app-profile': HTMLAppProfileElement;
     'app-root': HTMLAppRootElement;
+    'event-form': HTMLEventFormElement;
   }
 
 

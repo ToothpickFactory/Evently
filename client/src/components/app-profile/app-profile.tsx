@@ -1,31 +1,46 @@
-import { Component, Prop } from '@stencil/core';
-import { MatchResults } from '@stencil/router';
+import { Component, Prop, State } from '@stencil/core';
+import { sayHello } from '../../helpers/utils';
 
 @Component({
   tag: 'app-profile',
-  styleUrl: 'app-profile.css',
-  shadow: true
+  styleUrl: 'app-profile.css'
 })
 export class AppProfile {
-  @Prop() match: MatchResults;
+  @State() state = false;
+  @Prop() name: string;
 
-  normalize(name: string): string {
-    if (name) {
-      return name.substr(0, 1).toUpperCase() + name.substr(1).toLowerCase();
+  formattedName(): string {
+    if (this.name) {
+      return this.name.substr(0, 1).toUpperCase() + this.name.substr(1).toLowerCase();
     }
     return '';
   }
 
   render() {
-    if (this.match && this.match.params.name) {
-      return (
-        <div class="app-profile">
-          <p>
-            Hello! My name is {this.normalize(this.match.params.name)}. My name was passed in
-            through a route param!
-          </p>
-        </div>
-      );
-    }
+    return [
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="/" />
+          </ion-buttons>
+          <ion-title>Profile: {this.name}</ion-title>
+        </ion-toolbar>
+      </ion-header>,
+
+      <ion-content padding>
+        <p>
+          {sayHello()}! My name is {this.formattedName()}. My name was passed in through a
+          route param!
+        </p>
+
+        <ion-item>
+          <ion-label>Setting ({this.state.toString()})</ion-label>
+          <ion-toggle
+            checked={this.state}
+            onIonChange={ev => (this.state = ev.detail.checked)}
+          />
+        </ion-item>
+      </ion-content>
+    ];
   }
 }
