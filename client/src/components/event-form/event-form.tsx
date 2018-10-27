@@ -1,4 +1,6 @@
 import { Component } from '@stencil/core';
+import { evently } from './../../services/evently';
+
 
 @Component({
   tag: 'event-form',
@@ -7,6 +9,7 @@ import { Component } from '@stencil/core';
 export class EventForm {
 
   render() {
+    evently.getEvents().then(res => console.log(res))
     return (
       <form>
         <ion-item>
