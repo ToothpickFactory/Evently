@@ -6,8 +6,8 @@ export interface event {
   maxSlots: number;
   title: string;
   startTime: number;
-  slots: slot[];
+  slots?: slot[];
   owner: slot;
-  tags: string[];
-  webhook: string;
+  tags?: string[];
+  webhook?: string;
 }
