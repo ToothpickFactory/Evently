@@ -15,7 +15,7 @@ export class EventForm {
     owner: null
   }
 
-  private createEvent(e) {
+  private async createEvent(e): Promise<void> {
     e.preventDefault();
 
     const title = (document.getElementById('title') as any).value;
@@ -28,12 +28,16 @@ export class EventForm {
     this.event.maxSlots = Number(maxSlots);
 
     const owner = (document.getElementById('owner') as any).value;
-    this.event.owner = { name: owner };
+    this.event.owner = owner;
 
-    evently.createEvent(this.event).then(res => console.log(res));
+    const eventId = await evently.createEvent(this.event);
+
+    const event = await evently.getEvent(eventId);
+    console.log(event);
   }
 
   render() {
+    evently.getEvents().then(events => console.log(events))
     return (
       <form onSubmit={(e) => this.createEvent(e)}>
         <ion-item>

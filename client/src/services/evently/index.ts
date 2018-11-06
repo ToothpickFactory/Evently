@@ -12,14 +12,16 @@ class EventlyJS {
     }
   }
 
-  public createEvent = async (event: event): Promise<event> => {
+  public createEvent = async (event: event): Promise<string> => {
     const response = await fetch(`${this.baseUrl}/events`, {
       method: "POST",
       headers: this.headers,
       body: JSON.stringify(event)
     });
 
-    return await response.json();
+    const { eventId } = await response.json();
+
+    return eventId
   }
 
   public updateEvent = async (event: event): Promise<event> => {
