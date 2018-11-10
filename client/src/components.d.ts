@@ -16,33 +16,33 @@ export namespace Components {
   interface AppHome {}
   interface AppHomeAttributes extends StencilHTMLAttributes {}
 
-  interface AppProfile {
-    'name': string;
-  }
-  interface AppProfileAttributes extends StencilHTMLAttributes {
-    'name'?: string;
-  }
-
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
   interface EventForm {}
   interface EventFormAttributes extends StencilHTMLAttributes {}
+
+  interface EventPage {
+    'eventId': string;
+  }
+  interface EventPageAttributes extends StencilHTMLAttributes {
+    'eventId'?: string;
+  }
 }
 
 declare global {
   interface StencilElementInterfaces {
     'AppHome': Components.AppHome;
-    'AppProfile': Components.AppProfile;
     'AppRoot': Components.AppRoot;
     'EventForm': Components.EventForm;
+    'EventPage': Components.EventPage;
   }
 
   interface StencilIntrinsicElements {
     'app-home': Components.AppHomeAttributes;
-    'app-profile': Components.AppProfileAttributes;
     'app-root': Components.AppRootAttributes;
     'event-form': Components.EventFormAttributes;
+    'event-page': Components.EventPageAttributes;
   }
 
 
@@ -50,12 +50,6 @@ declare global {
   var HTMLAppHomeElement: {
     prototype: HTMLAppHomeElement;
     new (): HTMLAppHomeElement;
-  };
-
-  interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {}
-  var HTMLAppProfileElement: {
-    prototype: HTMLAppProfileElement;
-    new (): HTMLAppProfileElement;
   };
 
   interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {}
@@ -70,18 +64,24 @@ declare global {
     new (): HTMLEventFormElement;
   };
 
+  interface HTMLEventPageElement extends Components.EventPage, HTMLStencilElement {}
+  var HTMLEventPageElement: {
+    prototype: HTMLEventPageElement;
+    new (): HTMLEventPageElement;
+  };
+
   interface HTMLElementTagNameMap {
     'app-home': HTMLAppHomeElement
-    'app-profile': HTMLAppProfileElement
     'app-root': HTMLAppRootElement
     'event-form': HTMLEventFormElement
+    'event-page': HTMLEventPageElement
   }
 
   interface ElementTagNameMap {
     'app-home': HTMLAppHomeElement;
-    'app-profile': HTMLAppProfileElement;
     'app-root': HTMLAppRootElement;
     'event-form': HTMLEventFormElement;
+    'event-page': HTMLEventPageElement;
   }
 
 
