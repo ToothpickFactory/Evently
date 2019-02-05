@@ -23,4 +23,7 @@
 + Use the following article to setup HTTPS - https://medium.com/@yash.kulshrestha/using-lets-encrypt-with-express-e069c7abe625
 + Create a sslcert directory in the root of the application.
 + It's advised that you symlink the fullchain.pem and privkey.pem files to this folder. Makes renewal easier.
-+ Renew HTTPS certs every 3 months - letsencrypt renew
++ Renew HTTPS certs every 3 months - 
++ + In .env change PORT to 80 and MODE to HTTP
++ + letsencrypt renew
++ + Change PORT back to 443 and MODE to HTTPS
