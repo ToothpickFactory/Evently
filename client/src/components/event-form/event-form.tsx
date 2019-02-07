@@ -8,6 +8,8 @@ import { event } from './../../interfaces/event.interface';
   styleUrl: 'event-form.css'
 })
 export class EventForm {
+  private history: HTMLIonRouterElement;
+
   private event: event = {
     maxSlots: null,
     title: null,
@@ -32,8 +34,14 @@ export class EventForm {
 
     const eventId = await evently.createEvent(this.event);
 
+    this.history.push(`/events/${eventId}`);
+
     const event = await evently.getEvent(eventId);
     console.log(event);
+  }
+
+  componentWillLoad() {
+    this.history = document.querySelector("ion-router");
   }
 
   render() {
