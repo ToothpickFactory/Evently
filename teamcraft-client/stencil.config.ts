@@ -1,6 +1,5 @@
 import { Config } from '@stencil/core';
-
-// https://stenciljs.com/docs/config
+import { sass } from '@stencil/sass';
 
 export const config: Config = {
   globalStyle: 'src/global/app.css',
@@ -8,8 +7,9 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'www',
-      // uncomment the following line to disable service workers in production
-      // serviceWorker: null
     }
+  ],
+  plugins: [
+    sass()
   ]
 };

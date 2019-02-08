@@ -15,6 +15,9 @@ export namespace Components {
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
+  interface EventCard {}
+  interface EventCardAttributes extends StencilHTMLAttributes {}
+
   interface EventForm {}
   interface EventFormAttributes extends StencilHTMLAttributes {}
 }
@@ -22,11 +25,13 @@ export namespace Components {
 declare global {
   interface StencilElementInterfaces {
     'AppRoot': Components.AppRoot;
+    'EventCard': Components.EventCard;
     'EventForm': Components.EventForm;
   }
 
   interface StencilIntrinsicElements {
     'app-root': Components.AppRootAttributes;
+    'event-card': Components.EventCardAttributes;
     'event-form': Components.EventFormAttributes;
   }
 
@@ -37,6 +42,12 @@ declare global {
     new (): HTMLAppRootElement;
   };
 
+  interface HTMLEventCardElement extends Components.EventCard, HTMLStencilElement {}
+  var HTMLEventCardElement: {
+    prototype: HTMLEventCardElement;
+    new (): HTMLEventCardElement;
+  };
+
   interface HTMLEventFormElement extends Components.EventForm, HTMLStencilElement {}
   var HTMLEventFormElement: {
     prototype: HTMLEventFormElement;
@@ -45,11 +56,13 @@ declare global {
 
   interface HTMLElementTagNameMap {
     'app-root': HTMLAppRootElement
+    'event-card': HTMLEventCardElement
     'event-form': HTMLEventFormElement
   }
 
   interface ElementTagNameMap {
     'app-root': HTMLAppRootElement;
+    'event-card': HTMLEventCardElement;
     'event-form': HTMLEventFormElement;
   }
 

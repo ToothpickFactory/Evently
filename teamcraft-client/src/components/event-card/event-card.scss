@@ -1,0 +1,61 @@
+event-card {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  padding: 10px;
+  background: #DCDCDC;
+  border-radius: 5px;
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    h1 {
+      flex: 0 0 100%;
+      text-align: center;
+      margin: 2px 0;
+    }
+    h2 {
+      margin: 2px 0;
+    }
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        display: flex;
+        align-items: center;
+        padding: 2px;
+        margin: 2px 0;
+        p {
+          flex: 1 1 auto;
+        }
+        button {
+          height: 35px;
+          width: 35px;
+          font-size: 25px;
+          font-weight: bold;
+          background: none;
+          border: 1px solid white;
+          color: white;
+          border-radius: 100%;
+        }
+      }
+    }
+    form {
+      display: flex;
+      input {
+        flex: 1 1 auto;
+        height: 45px;
+        font-size: 22px;
+      }
+      button {
+        height: 45px;
+        width: 45px;
+        font-size: 25px;
+      }
+    }
+  }
+}

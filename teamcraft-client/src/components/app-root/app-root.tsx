@@ -9,6 +9,6 @@ import { Component } from '@stencil/core';
 export class AppRoot {
 
   render() {
-    return [<event-form />];
+    return [<event-card />];
   }
 }

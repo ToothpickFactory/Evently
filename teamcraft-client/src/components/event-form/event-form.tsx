@@ -38,9 +38,6 @@ export class EventForm {
         <label htmlFor="owner">Owner Name</label>
         <input type="text" name="owner" id="owner" />
 
-        <vaadin-date-picker label="Date" placeholder="Pick a date">
-        </vaadin-date-picker>
-
         <button type="submit">Submit</button>
       </form>
     ];
