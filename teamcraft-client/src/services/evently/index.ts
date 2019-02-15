@@ -59,7 +59,7 @@ class EventlyJS {
     return;
   }
 
-  public addSlot = async (eventId: string, slot: slot): Promise<slot> => {
+  public join = async (eventId: string, slot: slot): Promise<slot> => {
     const response = await fetch(`${this.baseUrl}/events/${eventId}/slots`, {
       method: "POST",
       headers: this.headers,
@@ -69,7 +69,7 @@ class EventlyJS {
     return await response.json();
   }
 
-  public removeSlot = async (eventId: string, slotId: string): Promise<void> => {
+  public leave = async (eventId: string, slotId: string): Promise<void> => {
     await fetch(`${this.baseUrl}/events/${eventId}/slots/${slotId}`, {
       method: "DELETE",
       headers: this.headers

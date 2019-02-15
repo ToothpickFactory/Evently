@@ -2,25 +2,28 @@ event-card {
   display: flex;
   flex-direction: column;
   width: 360px;
-  padding: 10px;
-  background: #DCDCDC;
   border-radius: 5px;
+  overflow: hidden;
   header {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding: 10px 10px 10px 10px;
+    background: #DCDCDC;
     h1 {
       flex: 0 0 100%;
       text-align: center;
-      margin: 2px 0;
+      margin: 0 0 10px 0;
     }
-    h2 {
+    date-time, count-down {
       margin: 2px 0;
     }
   }
   main {
     display: flex;
     flex-direction: column;
+    padding: 0px 10px 10px 10px;
+    background: #e6e5e5;
     ul {
       margin: 0;
       padding: 0;
@@ -28,19 +31,24 @@ event-card {
         display: flex;
         align-items: center;
         padding: 2px;
-        margin: 2px 0;
+        margin: 10px 0;
         p {
           flex: 1 1 auto;
+          font-size: 20px;
+          margin: 0;
+
         }
         button {
           height: 35px;
           width: 35px;
-          font-size: 25px;
+          font-size: 35px;
           font-weight: bold;
           background: none;
           border: 1px solid white;
           color: white;
           border-radius: 100%;
+          line-height: 35px;
+          text-align: center;
         }
       }
     }

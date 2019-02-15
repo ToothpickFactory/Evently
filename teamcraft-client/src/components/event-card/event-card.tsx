@@ -1,4 +1,7 @@
-import { Component } from '@stencil/core';
+import { Component, Prop } from '@stencil/core';
+import { event } from '../../interfaces/event.interface';
+import { slot } from './../../interfaces/slot.interface';
+import { evently } from '../../services/evently';
 
 @Component({
   tag: 'event-card',
@@ -6,21 +9,36 @@ import { Component } from '@stencil/core';
   shadow: false
 })
 export class EventCard {
+  @Prop() event: event;
+
+  join = async (e) => {
+    e.preventDefault();
+
+    const name = e.target.elements.newSlot.value;
+    const res = await evently.join(this.event._id, { name });
+    console.log(res);
+  }
+
+  leave = async (slotId) => {
+    const res = await evently.leave(this.event._id, slotId);
+    console.log(res)
+  }
+
   render() {
     return [
       <header>
-        <h1>Dreaming City</h1>
-        <h3>Sep 30 8:15PM MST</h3>
-        <h3>2D 5H 15M</h3>
+        <h1>{this.event.title}</h1>
+        <date-time timestamp={this.event.startTime} />
+        <count-down timestamp={this.event.startTime} />
       </header>,
       <main>
         <ul>
-          <li><p>Felix</p><button>-</button></li>
-          <li><p>Riot</p><button>-</button></li>
-          <li><p>Acurite</p><button>-</button></li>
-          <li><p>Zaltan</p><button>-</button></li>
+          {this.event.slots.map((slot: slot) => <li>
+            <p>{slot.name}</p><button onClick={() => this.leave(slot.id)}>-</button>
+          </li>
+          )}
         </ul>
-        <form>
+        <form onSubmit={this.join}>
           <input type="text" name="newSlot" />
           <button type="submit">+</button>
         </form>

@@ -8,6 +8,9 @@
 import '@stencil/core';
 
 
+import {
+  event,
+} from './interfaces/event.interface';
 
 
 export namespace Components {
@@ -15,8 +18,26 @@ export namespace Components {
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
-  interface EventCard {}
-  interface EventCardAttributes extends StencilHTMLAttributes {}
+  interface CountDown {
+    'timestamp': number;
+  }
+  interface CountDownAttributes extends StencilHTMLAttributes {
+    'timestamp'?: number;
+  }
+
+  interface DateTime {
+    'timestamp': number;
+  }
+  interface DateTimeAttributes extends StencilHTMLAttributes {
+    'timestamp'?: number;
+  }
+
+  interface EventCard {
+    'event': event;
+  }
+  interface EventCardAttributes extends StencilHTMLAttributes {
+    'event'?: event;
+  }
 
   interface EventForm {}
   interface EventFormAttributes extends StencilHTMLAttributes {}
@@ -25,12 +46,16 @@ export namespace Components {
 declare global {
   interface StencilElementInterfaces {
     'AppRoot': Components.AppRoot;
+    'CountDown': Components.CountDown;
+    'DateTime': Components.DateTime;
     'EventCard': Components.EventCard;
     'EventForm': Components.EventForm;
   }
 
   interface StencilIntrinsicElements {
     'app-root': Components.AppRootAttributes;
+    'count-down': Components.CountDownAttributes;
+    'date-time': Components.DateTimeAttributes;
     'event-card': Components.EventCardAttributes;
     'event-form': Components.EventFormAttributes;
   }
@@ -40,6 +65,18 @@ declare global {
   var HTMLAppRootElement: {
     prototype: HTMLAppRootElement;
     new (): HTMLAppRootElement;
+  };
+
+  interface HTMLCountDownElement extends Components.CountDown, HTMLStencilElement {}
+  var HTMLCountDownElement: {
+    prototype: HTMLCountDownElement;
+    new (): HTMLCountDownElement;
+  };
+
+  interface HTMLDateTimeElement extends Components.DateTime, HTMLStencilElement {}
+  var HTMLDateTimeElement: {
+    prototype: HTMLDateTimeElement;
+    new (): HTMLDateTimeElement;
   };
 
   interface HTMLEventCardElement extends Components.EventCard, HTMLStencilElement {}
@@ -56,12 +93,16 @@ declare global {
 
   interface HTMLElementTagNameMap {
     'app-root': HTMLAppRootElement
+    'count-down': HTMLCountDownElement
+    'date-time': HTMLDateTimeElement
     'event-card': HTMLEventCardElement
     'event-form': HTMLEventFormElement
   }
 
   interface ElementTagNameMap {
     'app-root': HTMLAppRootElement;
+    'count-down': HTMLCountDownElement;
+    'date-time': HTMLDateTimeElement;
     'event-card': HTMLEventCardElement;
     'event-form': HTMLEventFormElement;
   }
