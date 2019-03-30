@@ -18,10 +18,8 @@ async function createAccount(email, password) {
   if (await findAccountByEmail(email)) throw codes.emailTaken();
 
   const uid = shortid.generate();
-  const clientId = shortid.generate();
   return db.collection("accounts").doc(uid).set({
     uid,
-    clientId,
     email,
     password
   });

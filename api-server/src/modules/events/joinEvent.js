@@ -3,10 +3,11 @@ const slotPrevision = require("./slotPrevision");
 const firestore = require("firebase-admin").firestore;
 const personValidator = require(appRoot + "/schemas/person/validator");
 const codes = require("../codes");
+const mrEmitter = require('../../util/mrEmitter');
 
 async function joinEvent(event, slot) {
   const slots = event.slots;
-  
+
   const newSlot = slotPrevision(slot);
 
   const result = personValidator(newSlot);
@@ -21,9 +22,8 @@ async function joinEvent(event, slot) {
     await db.collection("events").doc(event._id).update({
       slots: firestore.FieldValue.arrayUnion(newSlot)
     });
-    return {
-      slotId: newSlot.id
-    };
+    mrEmitter.emit('EVENT_UPDATED', event._id);
+    return event;
   } catch (err) {
     throw codes.serverError(err);
   }

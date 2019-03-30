@@ -1,7 +1,7 @@
 const db = require(appRoot + "/connections/firebase").db;
 const codes = require(appRoot + "/modules/codes");
 const passwordEncrypt = require('./passwordEncrypt');
-const jwt = require("jsonwebtoken");
+const signToken = require('./signToken');
 
 async function credentialExchange(email, password) {
   if (!email || !password) throw codes.credentialsRequired();
@@ -25,13 +25,10 @@ async function credentialExchange(email, password) {
   if (!account) throw codes.userNotFound();
 
   const tokenFields = {
-    uid: account.uid,
-    clientId: account.clientId
+    uid: account.uid
   };
 
-  const token = jwt.sign(tokenFields, process.env.JWT_KEY, {
-    noTimestamp: true
-  });
+  const token = signToken(tokenFields);
 
   return {
     token

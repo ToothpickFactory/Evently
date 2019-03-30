@@ -1,12 +1,8 @@
 const db = require(appRoot + "/connections/firebase").db;
 const codes = require(appRoot + '/modules/codes');
 
-async function getEvents(rawQuery = {}, clientId) {
+async function getEvents(rawQuery = {}) {
   let queryRef = db.collection("events");
-
-  if (clientId) {
-    queryRef = queryRef.where("clientId", "==", clientId);
-  }
 
   if (rawQuery.rangeStart) {
     queryRef = queryRef.where("startTime", ">", Number(rawQuery.rangeStart));

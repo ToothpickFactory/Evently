@@ -1,7 +1,7 @@
 const db = require(appRoot + "/connections/firebase").db;
 const codes = require("../codes");
 
-async function getEvent(_id, clientId) {
+async function getEvent(_id) {
   let eventDoc;
   try {
     eventDoc = await db.collection("events").doc(_id).get();
@@ -15,9 +15,6 @@ async function getEvent(_id, clientId) {
 
   const event = eventDoc.data();
 
-  if (event.clientId !== clientId) {
-    throw codes.forbidden();
-  }
   return event;
 }
 

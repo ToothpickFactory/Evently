@@ -3,8 +3,7 @@ const codes = require(appRoot + '/modules/codes');
 
 module.exports = (req, res) => {
 	let query = req.query;
-	let clientId = req.auth.clientId;
-	EventsModule.getEvents(query, clientId)
+	EventsModule.getEvents(query)
 		.then(events => res.send(events))
 		.catch(err => codes.errRes(err, res))
 }

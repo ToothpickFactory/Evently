@@ -1,8 +1,10 @@
-import { slot } from './slot.interface';
+export interface slot {
+  id?: string
+  name: string;
+}
 
 export interface event {
   _id?: string;
-  clientId?: string;
   maxSlots: number;
   title: string;
   startTime: number;

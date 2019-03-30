@@ -1,7 +1,7 @@
 const getEvents = require('../events/getEvents');
 const callHook = require('./callHook');
- 
-module.exports = function(){
+
+module.exports = function () {
 	let query = {
 		rangeStart: Date.now(),
 		rangeEnd: Date.now() + 300000
@@ -9,9 +9,7 @@ module.exports = function(){
 
 	getEvents(query).then(events => {
 		events.forEach(event => {
-				callHook("STARTING_SOON", event);
+			callHook("STARTING_SOON", event);
 		});
 	});
 }
-
-	

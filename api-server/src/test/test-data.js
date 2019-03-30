@@ -10,9 +10,8 @@ module.exports = {
 	get url() {
 		return `${process.env.BASE_URL}:${process.env.PORT}`;
 	},
-	event(clientId) {
+	event() {
 		return {
-			clientId,
 			title: "Test Event",
 			maxSlots: 10,
 			startTime: Date.now() + 300000,

@@ -8,9 +8,6 @@
 import '@stencil/core';
 
 
-import {
-  event,
-} from './interfaces/event.interface';
 
 
 export namespace Components {
@@ -33,10 +30,10 @@ export namespace Components {
   }
 
   interface EventCard {
-    'event': event;
+    'eventId': string;
   }
   interface EventCardAttributes extends StencilHTMLAttributes {
-    'event'?: event;
+    'eventId'?: string;
   }
 
   interface EventForm {}

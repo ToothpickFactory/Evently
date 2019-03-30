@@ -1,7 +1,6 @@
-import { Component, Prop } from '@stencil/core';
-import { event } from '../../interfaces/event.interface';
-import { slot } from './../../interfaces/slot.interface';
-import { evently } from '../../services/evently';
+import { Component, Prop, State } from '@stencil/core';
+import { Evently } from '../../services/evently';
+import { event, slot } from '../../interfaces/event.interface';
 
 @Component({
   tag: 'event-card',
@@ -9,19 +8,37 @@ import { evently } from '../../services/evently';
   shadow: false
 })
 export class EventCard {
-  @Prop() event: event;
+  @Prop() eventId: string;
+  @State() event: event;
+  private eventClass: Evently;
+
+  async componentWillLoad() {
+    await this.bootEvent();
+  }
+
+  componentDidUnload() {
+    this.eventClass.unsubscribe(this.onEventUpdated);
+  }
+
+  async bootEvent() {
+    this.eventClass = await Evently.getEvent(this.eventId);
+    this.event = this.eventClass.toJSON();
+    this.eventClass.subscribe(this.onEventUpdated);
+  }
+
+  private onEventUpdated = () => {
+    this.event = { ...this.eventClass.toJSON() };
+  }
 
   join = async (e) => {
     e.preventDefault();
-
     const name = e.target.elements.newSlot.value;
-    const res = await evently.join(this.event._id, { name });
-    console.log(res);
+    e.target.reset();
+    await this.eventClass.join({ name });
   }
 
-  leave = async (slotId) => {
-    const res = await evently.leave(this.event._id, slotId);
-    console.log(res)
+  leave = async (slotId: string) => {
+    await this.eventClass.leave(slotId);
   }
 
   render() {
