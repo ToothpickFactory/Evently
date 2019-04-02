@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express, { Request, Response } from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import EventController from './controllers/EventController';
 import { loadEvent } from './middleware/loadEvent';
@@ -10,7 +9,7 @@ import { authUser } from './middleware/authUser';
 
 const app: express.Application = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors({ exposedHeaders: 'Authorization' }));
 
 app.get('/', (_req: Request, res: Response) => res.send('Welcome to Teamcraft API!'));
