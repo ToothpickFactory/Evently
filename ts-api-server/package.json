@@ -1,10 +1,13 @@
 {
   "name": "ts-api-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Teamcraft API Server",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "npm run serve",
+    "start": "pm2 start dist/server.js --name teamcraft-server",
+    "reload": "pm2 reload teamcraft-server",
+    "stop": "pm2 stop teamcraft-server",
+    "logs": "pm2 logs teamcraft-server",
     "build": "npm run build-ts && npm run tslint",
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
@@ -24,13 +27,13 @@
     "@types/jsonwebtoken": "^8.3.2",
     "@types/node-schedule": "^1.2.3",
     "@types/socket.io": "^2.1.2",
+    "@types/shortid": "0.0.29",
     "concurrently": "^4.1.0",
     "nodemon": "^1.18.10",
     "tslint": "^5.14.0",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
-    "@types/shortid": "0.0.29",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
