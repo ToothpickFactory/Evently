@@ -4,11 +4,11 @@ export interface slot {
 }
 
 export interface event {
-  _id?: string;
+  event_id?: string;
   maxSlots: number;
   title: string;
   startTime: number;
-  slots?: slot[];
+  party?: slot[];
   owner: slot;
   tags?: string[];
   webhook?: string;

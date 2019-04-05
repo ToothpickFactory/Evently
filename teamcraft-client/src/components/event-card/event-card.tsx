@@ -45,12 +45,12 @@ export class EventCard {
     return [
       <header>
         <h1>{this.event.title}</h1>
-        <date-time timestamp={this.event.startTime} />
-        <count-down timestamp={this.event.startTime} />
+        {/* <date-time timestamp={this.event.startTime} />
+        <count-down timestamp={this.event.startTime} /> */}
       </header>,
       <main>
         <ul>
-          {this.event.slots.map((slot: slot) => <li>
+          {this.event.party.map((slot: slot) => <li>
             <p>{slot.name}</p><button onClick={() => this.leave(slot.id)}>-</button>
           </li>
           )}

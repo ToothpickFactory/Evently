@@ -6,7 +6,7 @@ import { Component } from '@stencil/core';
   shadow: false
 })
 export class AppRoot {
-  private eventId: string = '1iiDzkwtq';
+  private eventId: string = 'DEz5pCU44';
 
   render() {
     return <event-card eventId={this.eventId} />

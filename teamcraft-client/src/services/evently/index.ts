@@ -50,11 +50,11 @@ export class Evently {
     return new Evently(newEvent);
   }
 
-  public _id: event['_id'];
+  public event_id: event['event_id'];
   public maxSlots: event['maxSlots'];
   public title: event['title'];
   public startTime: event['startTime'];
-  public slots: event['slots'];
+  public party: event['party'];
   public owner: event['owner'];
   public tags: event['tags'] = [];
   public webhook: event['webhook'];
@@ -67,11 +67,11 @@ export class Evently {
   }
 
   private createSocket = () => {
-    this.socket = (window as any).io(`${Evently.baseUrl}?event_id=${this._id}`);
-    this.socket.on('EVENT_UPDATED', (event: event) => {
-      this.syncEvent(event);
-      this.publish();
-    });
+    // this.socket = (window as any).io(`${Evently.baseUrl}?event_id=${this.event_id}`);
+    // this.socket.on('EVENT_UPDATED', (event: event) => {
+    //   this.syncEvent(event);
+    //   this.publish();
+    // });
   }
 
   private syncEvent = (event: event): void => {
@@ -80,9 +80,9 @@ export class Evently {
 
   public getSocket = () => this.socket || this.createSocket();
 
-  private publish = () => {
-    this.subscribers.forEach(sub => sub(this))
-  }
+  // private publish = () => {
+  //   this.subscribers.forEach(sub => sub(this))
+  // }
 
   public subscribe = (sub: Function): void => {
     this.subscribers.push(sub);
@@ -93,34 +93,34 @@ export class Evently {
   }
 
   public updateEvent = async (event: event): Promise<Evently> => {
-    const updatedEvent = await Evently.fetch('PUT', `/events/${event._id}`, event) as event;
+    const updatedEvent = await Evently.fetch('PUT', `/events/${event.event_id}`, event) as event;
     this.syncEvent(updatedEvent);
     return this;
   }
 
   public removeEvent = async (): Promise<void> => {
-    await Evently.fetch('DELETE', `/events/${this._id}`);
+    await Evently.fetch('DELETE', `/events/${this.event_id}`);
   }
 
   public join = async (slot: slot): Promise<Evently> => {
-    const updatedEvent = await Evently.fetch('POST', `/events/${this._id}/slots`, slot) as event;
+    const updatedEvent = await Evently.fetch('POST', `/events/${this.event_id}/party`, slot) as event;
     this.syncEvent(updatedEvent);
     return this;
   }
 
   public leave = async (slotId: string): Promise<Evently> => {
-    const updatedEvent = await Evently.fetch('DELETE', `/events/${this._id}/slots/${slotId}`) as event;
+    const updatedEvent = await Evently.fetch('DELETE', `/events/${this.event_id}/party/${slotId}`) as event;
     this.syncEvent(updatedEvent);
     return this;
   }
 
   public toJSON = (): event => {
     return {
-      _id: this._id,
+      event_id: this.event_id,
       maxSlots: this.maxSlots,
       title: this.title,
       startTime: this.startTime,
-      slots: this.slots,
+      party: this.party,
       owner: this.owner,
       tags: this.tags,
       webhook: this.webhook
