@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { EventClass } from './../models/Event/Event';
-import { IEvent } from 'IEvent';
-import { IMember } from './../types/IEvent';
+import { IEvent, IMember } from 'IEvent';
 import { RequestCustom } from '../types/RequestCustom';
 
 export default class EventController {
@@ -56,6 +55,7 @@ export default class EventController {
 	public static async joinEvent(req: RequestCustom, res: Response): Promise<void> {
 		try {
 			const member: IMember = req.body;
+			member.user_id = req.user.user_id;
 			await req.event.join(member);
 			res.sendStatus(200);
 		} catch (err) {

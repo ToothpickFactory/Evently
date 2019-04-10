@@ -1,6 +1,6 @@
 import { db } from './../../config/firebase';
 import shortid from 'shortid';
-import { IUser } from './../../types/IUser';
+import { IUser } from 'IUser';
 import { idConflictError, serverError, validationError, invalidToken, credentialsRequired, userNotFound } from './../Codes/Codes';
 import { Validator } from 'jsonschema';
 import UserSchema from './User.schema.json';
@@ -46,9 +46,9 @@ export class User {
 		return createHash('SHA1').update(password).digest('hex');
 	}
 
-	public user_id: IUser['user_id'];
-	private email: IUser['email'];
-	private password: IUser['password'];
+	public user_id: IUser['user_id'] = null;
+	private email: IUser['email'] = null;
+	private password: IUser['password'] = null;
 
 	constructor(user: IUser = null) {
 		this.setValues(user);
@@ -56,10 +56,9 @@ export class User {
 
 	public setValues(user: IUser) {
 		if (this.user_id && user.user_id !== this.user_id) throw idConflictError();
-
 		Object.assign(this, user);
 		const results = User.userValidate(this.toJSON());
-		if (results.errors.length) throw validationError(results.errors.toString() + ' ' + JSON.stringify(event));
+		if (results.errors.length) throw validationError(results.errors.toString() + ' ' + JSON.stringify(user));
 	}
 
 	public async save(): Promise<User> {
@@ -70,6 +69,7 @@ export class User {
 			await db.collection('accounts').doc(user.user_id).set(user);
 			return this;
 		} catch (err) {
+
 			throw serverError(err);
 		}
 	}

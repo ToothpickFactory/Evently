@@ -44,7 +44,7 @@ export const EventSchema = {
 		party: {
 			type: 'array',
 			items: {
-				$ref: '/Party'
+				$ref: '/Member'
 			}
 		},
 		owner_id: {

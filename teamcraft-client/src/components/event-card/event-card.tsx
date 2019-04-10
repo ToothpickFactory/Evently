@@ -1,6 +1,6 @@
 import { Component, Prop, State } from '@stencil/core';
-import { Evently } from '../../services/evently';
-import { event, slot } from '../../interfaces/event.interface';
+import { EventClass } from '../../models/EventClass';
+import { IEvent, IMember } from 'src/typings/IEvent';
 
 @Component({
   tag: 'event-card',
@@ -9,8 +9,8 @@ import { event, slot } from '../../interfaces/event.interface';
 })
 export class EventCard {
   @Prop() eventId: string;
-  @State() event: event;
-  private eventClass: Evently;
+  @State() event: IEvent;
+  private eventClass: EventClass;
 
   async componentWillLoad() {
     await this.bootEvent();
@@ -21,7 +21,7 @@ export class EventCard {
   }
 
   async bootEvent() {
-    this.eventClass = await Evently.getEvent(this.eventId);
+    this.eventClass = await EventClass.getEvent(this.eventId);
     this.event = this.eventClass.toJSON();
     this.eventClass.subscribe(this.onEventUpdated);
   }
@@ -34,7 +34,7 @@ export class EventCard {
     e.preventDefault();
     const name = e.target.elements.newSlot.value;
     e.target.reset();
-    await this.eventClass.join({ name });
+    await this.eventClass.join( name );
   }
 
   leave = async (slotId: string) => {
@@ -50,8 +50,8 @@ export class EventCard {
       </header>,
       <main>
         <ul>
-          {this.event.party.map((slot: slot) => <li>
-            <p>{slot.name}</p><button onClick={() => this.leave(slot.id)}>-</button>
+          {this.event.party.map((member: IMember) => <li>
+            <p>{member.name}</p><button onClick={() => this.leave(member.user_id)}>-</button>
           </li>
           )}
         </ul>

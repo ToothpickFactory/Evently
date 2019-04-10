@@ -1,5 +1,5 @@
 import { Component } from '@stencil/core';
-import { Evently } from '../../services/evently';
+import { EventClass } from 'src/models/EventClass';
 
 @Component({
   tag: 'event-form',
@@ -16,7 +16,7 @@ export class EventForm {
       owner: e.target.elements.owner.value
     }
 
-    const evently = await Evently.createEvent(event);
+    const evently = await EventClass.createEvent(event);
     console.log(evently);
   }
 

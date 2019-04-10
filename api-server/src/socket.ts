@@ -9,7 +9,7 @@ export default (server: http.Server | https.Server) => {
 	IO.on('connection', (socket: _SocketIO.Socket) => {
 		const event_id = socket.handshake.query.event_id;
 		socket.join(event_id);
-		this.IO.to(event_id).emit('news', 'WELCOME TO THE ROOM ' + event_id);
+		IO.to(event_id).emit('news', 'WELCOME TO THE ROOM ' + event_id);
 	});
 
 	EventClass.on(EVENT_UPDATED, (event: EventClass) => {
