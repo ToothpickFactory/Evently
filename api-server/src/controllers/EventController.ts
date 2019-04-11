@@ -57,7 +57,7 @@ export default class EventController {
 			const member: IMember = req.body;
 			member.user_id = req.user.user_id;
 			await req.event.join(member);
-			res.sendStatus(200);
+			res.status(200).send(req.event.toJSON());
 		} catch (err) {
 			res.status(err.status).send(err.msg);
 		}
@@ -67,7 +67,7 @@ export default class EventController {
 		try {
 			const member_id: string = req.params.member_id;
 			await req.event.leave(member_id);
-			res.sendStatus(200);
+			res.status(200).send(req.event.toJSON());
 		} catch (err) {
 			res.status(err.status).send(err.msg);
 		}

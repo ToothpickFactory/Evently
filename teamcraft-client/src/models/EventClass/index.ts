@@ -67,11 +67,11 @@ export class EventClass {
   }
 
   private createSocket = () => {
-    // this.socket = (window as any).io(`${Evently.baseUrl}?event_id=${this.event_id}`);
-    // this.socket.on('EVENT_UPDATED', (event: event) => {
-    //   this.syncEvent(event);
-    //   this.publish();
-    // });
+    this.socket = (window as any).io(`${EventClass.baseUrl}?event_id=${this.event_id}`);
+    this.socket.on('EVENT_UPDATED', (event: IEvent) => {
+      this.syncEvent(event);
+      this.publish();
+    });
   }
 
   private syncEvent = (event: IEvent): void => {
@@ -80,9 +80,9 @@ export class EventClass {
 
   public getSocket = () => this.socket || this.createSocket();
 
-  // private publish = () => {
-  //   this.subscribers.forEach(sub => sub(this))
-  // }
+  private publish = () => {
+    this.subscribers.forEach(sub => sub(this))
+  }
 
   public subscribe = (sub: Function): void => {
     this.subscribers.push(sub);

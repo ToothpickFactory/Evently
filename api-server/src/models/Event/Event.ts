@@ -12,7 +12,7 @@ export const EVENT_UPDATED = 'EVENT_UPDATED';
 const emitter = new EventEmitter();
 
 export class EventClass {
-	public static on = emitter.on;
+	public static emitter = emitter;
 
 	public static eventValidate(event: IEvent) {
 		return EventValidator(event);
@@ -86,7 +86,7 @@ export class EventClass {
 		}
 	}
 
-	public async join(member: IMember): Promise<void> {
+	public async join(member: IMember): Promise<EventClass> {
 		const results = EventClass.memberValidate(member);
 		if (results.errors.length) throw validationError(results.errors.toString());
 		try {
@@ -94,15 +94,17 @@ export class EventClass {
 				this.party.push(member);
 			}
 			await this.save();
+			return this;
 		} catch (err) {
 			throw serverError(err);
 		}
 	}
 
-	public async leave(user_id: string): Promise<void> {
+	public async leave(user_id: string): Promise<EventClass> {
 		this.party = this.party.filter((member: IMember) => member.user_id !== user_id);
 		try {
 			await this.save();
+			return this;
 		} catch (err) {
 			throw serverError(err);
 		}

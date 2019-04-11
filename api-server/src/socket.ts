@@ -12,7 +12,7 @@ export default (server: http.Server | https.Server) => {
 		IO.to(event_id).emit('news', 'WELCOME TO THE ROOM ' + event_id);
 	});
 
-	EventClass.on(EVENT_UPDATED, (event: EventClass) => {
+	EventClass.emitter.on(EVENT_UPDATED, (event: EventClass) => {
 		IO.to(event.event_id).emit(EVENT_UPDATED, event.toJSON());
 	});
 };
