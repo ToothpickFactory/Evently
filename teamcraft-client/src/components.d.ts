@@ -7,7 +7,8 @@
 
 import '@stencil/core';
 
-
+import '@stencil/router';
+import '@stencil/state-tunnel';
 
 
 export namespace Components {
@@ -21,6 +22,9 @@ export namespace Components {
   interface CountDownAttributes extends StencilHTMLAttributes {
     'timestamp'?: number;
   }
+
+  interface CreateEventPage {}
+  interface CreateEventPageAttributes extends StencilHTMLAttributes {}
 
   interface DateTime {
     'timestamp': number;
@@ -44,6 +48,7 @@ declare global {
   interface StencilElementInterfaces {
     'AppRoot': Components.AppRoot;
     'CountDown': Components.CountDown;
+    'CreateEventPage': Components.CreateEventPage;
     'DateTime': Components.DateTime;
     'EventCard': Components.EventCard;
     'EventForm': Components.EventForm;
@@ -52,6 +57,7 @@ declare global {
   interface StencilIntrinsicElements {
     'app-root': Components.AppRootAttributes;
     'count-down': Components.CountDownAttributes;
+    'create-event-page': Components.CreateEventPageAttributes;
     'date-time': Components.DateTimeAttributes;
     'event-card': Components.EventCardAttributes;
     'event-form': Components.EventFormAttributes;
@@ -68,6 +74,12 @@ declare global {
   var HTMLCountDownElement: {
     prototype: HTMLCountDownElement;
     new (): HTMLCountDownElement;
+  };
+
+  interface HTMLCreateEventPageElement extends Components.CreateEventPage, HTMLStencilElement {}
+  var HTMLCreateEventPageElement: {
+    prototype: HTMLCreateEventPageElement;
+    new (): HTMLCreateEventPageElement;
   };
 
   interface HTMLDateTimeElement extends Components.DateTime, HTMLStencilElement {}
@@ -91,6 +103,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'app-root': HTMLAppRootElement
     'count-down': HTMLCountDownElement
+    'create-event-page': HTMLCreateEventPageElement
     'date-time': HTMLDateTimeElement
     'event-card': HTMLEventCardElement
     'event-form': HTMLEventFormElement
@@ -99,6 +112,7 @@ declare global {
   interface ElementTagNameMap {
     'app-root': HTMLAppRootElement;
     'count-down': HTMLCountDownElement;
+    'create-event-page': HTMLCreateEventPageElement;
     'date-time': HTMLDateTimeElement;
     'event-card': HTMLEventCardElement;
     'event-form': HTMLEventFormElement;

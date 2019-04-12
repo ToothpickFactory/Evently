@@ -1,0 +1,39 @@
+event-form {
+	height: fit-content;
+	flex: 0 1 500px;
+	border: 1px solid white;
+	border-radius: 10px;
+	padding: 15px;
+
+	form {
+		flex-direction: column;
+		flex: 1;
+
+		p {
+			display: flex;
+			padding: 15px 0;
+			label {
+				font-size: 18px;
+				color: white;
+				min-width: 125px;
+			}
+			input {
+				background: none;
+				border: none;
+				border-bottom: 1px solid white;
+				flex: 1;
+				outline: none;
+			}
+		}
+
+		button[type=submit] {
+			width: 100%;
+			background: #7fcbac;
+			border: none;
+			padding: 15px;
+			font-size: 20px;
+			color: white;
+			border-radius: 10px;
+		}
+	}
+}

@@ -1,4 +1,4 @@
-import { IEvent, IMember } from 'src/typings/IEvent';
+import { IEvent, IMember } from 'IEvent';
 import config from '../../config';
 
 export class EventClass {
@@ -103,7 +103,7 @@ export class EventClass {
   }
 
   public join = async (name: IMember['name']): Promise<EventClass> => {
-    const updatedEvent = await EventClass.fetch('POST', `/events/${this.event_id}/party`, {name}) as IEvent;
+    const updatedEvent = await EventClass.fetch('POST', `/events/${this.event_id}/party`, { name }) as IEvent;
     this.syncEvent(updatedEvent);
     return this;
   }

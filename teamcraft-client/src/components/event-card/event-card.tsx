@@ -1,6 +1,6 @@
 import { Component, Prop, State } from '@stencil/core';
 import { EventClass } from '../../models/EventClass';
-import { IEvent, IMember } from 'src/typings/IEvent';
+import { IEvent, IMember } from 'IEvent';
 
 @Component({
   tag: 'event-card',
@@ -34,7 +34,7 @@ export class EventCard {
     e.preventDefault();
     const name = e.target.elements.newSlot.value;
     e.target.reset();
-    await this.eventClass.join( name );
+    await this.eventClass.join(name);
   }
 
   leave = async (slotId: string) => {
