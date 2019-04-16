@@ -1,5 +1,6 @@
 import { Component } from '@stencil/core';
 import { EventClass } from '../../models/EventClass';
+import flatpickr from 'flatpickr';
 
 @Component({
 	tag: 'event-form',
@@ -12,11 +13,17 @@ export class EventForm {
 		const event = {
 			title: e.target.elements.title.value,
 			startTime: e.target.elements.startTime.value,
-			maxSlots: e.target.elements.maxSlots.value,
-			owner: e.target.elements.owner.value
+			maxSlots: e.target.elements.maxSlots.value
 		}
 
 		await EventClass.createEvent(event);
+	}
+
+	componentDidLoad() {
+		flatpickr('[name=startTime]', {
+			enableTime: true,
+			dateFormat: "Y-m-d H:i"
+		});
 	}
 
 	render() {
@@ -34,11 +41,6 @@ export class EventForm {
 			<p>
 				<label htmlFor="maxSlots">Max Slots</label>
 				<input type="number" name="maxSlots" id="maxSlots" />
-			</p>
-
-			<p>
-				<label htmlFor="owner">Owner Name</label>
-				<input type="text" name="owner" id="owner" />
 			</p>
 
 			<button type="submit">Submit</button>

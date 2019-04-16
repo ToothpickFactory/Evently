@@ -15,7 +15,8 @@
   "dependencies": {
     "@stencil/core": "0.18.1",
     "@stencil/router": "~0.3.1",
-    "@stencil/sass": "^0.1.1"
+    "@stencil/sass": "^0.1.1",
+    "flatpickr": "^4.5.7"
   },
   "license": "MIT",
   "devDependencies": {}
