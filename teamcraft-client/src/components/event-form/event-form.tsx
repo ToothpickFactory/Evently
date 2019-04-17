@@ -10,40 +10,46 @@ import flatpickr from 'flatpickr';
 export class EventForm {
 	async onSubmit(e) {
 		e.preventDefault();
+		const btn = e.target.elements.submit_btn;
+		btn.disabled = true;
+
 		const event = {
 			title: e.target.elements.title.value,
-			startTime: e.target.elements.startTime.value,
-			maxSlots: e.target.elements.maxSlots.value
+			start_time: new Date(e.target.elements.start_time.value).getTime(),
+			max_party: e.target.elements.max_party.value
 		}
 
-		await EventClass.createEvent(event);
+		e.target.reset();
+		const newEvent = await EventClass.createEvent(event);
+		btn.disabled = false;
+		window.location.assign(`/e/${newEvent.event_id}`);
 	}
 
 	componentDidLoad() {
-		flatpickr('[name=startTime]', {
+		flatpickr('[name=start_time]', {
 			enableTime: true,
 			dateFormat: "Y-m-d H:i"
 		});
 	}
 
 	render() {
-		return <form onSubmit={this.onSubmit}>
+		return <form onSubmit={(e) => this.onSubmit(e)}>
 			<p>
 				<label htmlFor="title">Title</label>
 				<input type="text" name="title" id="title" />
 			</p>
 
 			<p>
-				<label htmlFor="startTime">Start Time</label>
-				<input type="datetime" name="startTime" id="startTime" />
+				<label htmlFor="start_time">Start Time</label>
+				<input type="datetime" name="start_time" id="start_time" />
 			</p>
 
 			<p>
-				<label htmlFor="maxSlots">Max Slots</label>
-				<input type="number" name="maxSlots" id="maxSlots" />
+				<label htmlFor="max_party">Max Slots</label>
+				<input type="number" name="max_party" id="max_party" />
 			</p>
 
-			<button type="submit">Submit</button>
+			<button type="submit" name="submit_btn">Submit</button>
 		</form>
 	}
 }
