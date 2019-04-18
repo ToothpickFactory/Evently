@@ -18,11 +18,10 @@ export class AppRoot {
 				<stencil-router>
 					<stencil-route-switch>
 						<stencil-route url="/" component="create-event-page" exact={true} />
-						<stencil-route url="/e/:event_id" component="event-card" exact={true} />
+						<stencil-route url="/e/:event_id" component="event-page" exact={true} />
 					</stencil-route-switch>
 				</stencil-router>
 			</main>
 		]
-		// return <event-card eventId={this.eventId} />
 	}
 }

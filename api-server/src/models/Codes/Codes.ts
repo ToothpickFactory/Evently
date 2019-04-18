@@ -34,7 +34,7 @@ export const serverError = (err: string): ICode => {
 };
 
 export const userInEvent = (): ICode => {
-	return { status: 404, msg: 'Event not found or User may already be apart of this event' };
+	return { status: 409, msg: 'User is already a part of the group' };
 };
 
 export const userNotFound = (): ICode => {

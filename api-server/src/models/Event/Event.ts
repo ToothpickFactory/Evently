@@ -3,7 +3,7 @@ import shortid from 'shortid';
 import { IEvent, IMember } from 'IEvent';
 import { QueryDocumentSnapshot, CollectionReference, QuerySnapshot, DocumentSnapshot } from '@google-cloud/firestore';
 import { db } from './../../config/firebase';
-import { eventNotFound, serverError, validationError, idConflictError } from './../Codes/Codes';
+import { eventNotFound, serverError, validationError, idConflictError, userInEvent } from './../Codes/Codes';
 import EventValidator from './Event.schema';
 import MemberValidator from './Member.schema';
 
@@ -89,14 +89,16 @@ export class EventClass {
 	public async join(member: IMember): Promise<EventClass> {
 		const results = EventClass.memberValidate(member);
 		if (results.errors.length) throw validationError(results.errors.toString());
-		try {
-			if (!this.party.some((mem: IMember) => mem.user_id === member.user_id)) {
+		if (!this.party.some((mem: IMember) => mem.user_id === member.user_id)) {
+			try {
 				this.party.push(member);
+				await this.save();
+				return this;
+			} catch (err) {
+				throw serverError(err);
 			}
-			await this.save();
-			return this;
-		} catch (err) {
-			throw serverError(err);
+		} else {
+			throw userInEvent();
 		}
 	}
 

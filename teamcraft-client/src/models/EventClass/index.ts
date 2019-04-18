@@ -4,7 +4,11 @@ import config from '../../config';
 export class EventClass {
 	private static baseUrl: string = config.baseUrl;
 
-	private static token: string = localStorage.getItem('token') || '';
+	private static token: string = (() => {
+		const tokenTest = RegExp(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/);
+		const token = localStorage.getItem('token');
+		return tokenTest.test(token) ? token : '';
+	})();
 
 	private static headers: any = {
 		'Content-Type': 'application/json; charset=utf-8',
@@ -25,6 +29,7 @@ export class EventClass {
 		});
 
 		if (!EventClass.token) EventClass.checkForToken(res);
+		if (res.status > 299) throw { status: res.status, msg: await res.text() };
 
 		return await res.json();
 	}

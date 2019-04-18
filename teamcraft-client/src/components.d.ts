@@ -9,6 +9,9 @@ import '@stencil/core';
 
 import '@stencil/router';
 import '@stencil/state-tunnel';
+import {
+  MatchResults,
+} from '@stencil/router';
 
 
 export namespace Components {
@@ -42,6 +45,13 @@ export namespace Components {
 
   interface EventForm {}
   interface EventFormAttributes extends StencilHTMLAttributes {}
+
+  interface EventPage {
+    'match': MatchResults;
+  }
+  interface EventPageAttributes extends StencilHTMLAttributes {
+    'match'?: MatchResults;
+  }
 }
 
 declare global {
@@ -52,6 +62,7 @@ declare global {
     'DateTime': Components.DateTime;
     'EventCard': Components.EventCard;
     'EventForm': Components.EventForm;
+    'EventPage': Components.EventPage;
   }
 
   interface StencilIntrinsicElements {
@@ -61,6 +72,7 @@ declare global {
     'date-time': Components.DateTimeAttributes;
     'event-card': Components.EventCardAttributes;
     'event-form': Components.EventFormAttributes;
+    'event-page': Components.EventPageAttributes;
   }
 
 
@@ -100,6 +112,12 @@ declare global {
     new (): HTMLEventFormElement;
   };
 
+  interface HTMLEventPageElement extends Components.EventPage, HTMLStencilElement {}
+  var HTMLEventPageElement: {
+    prototype: HTMLEventPageElement;
+    new (): HTMLEventPageElement;
+  };
+
   interface HTMLElementTagNameMap {
     'app-root': HTMLAppRootElement
     'count-down': HTMLCountDownElement
@@ -107,6 +125,7 @@ declare global {
     'date-time': HTMLDateTimeElement
     'event-card': HTMLEventCardElement
     'event-form': HTMLEventFormElement
+    'event-page': HTMLEventPageElement
   }
 
   interface ElementTagNameMap {
@@ -116,6 +135,7 @@ declare global {
     'date-time': HTMLDateTimeElement;
     'event-card': HTMLEventCardElement;
     'event-form': HTMLEventFormElement;
+    'event-page': HTMLEventPageElement;
   }
 
 
