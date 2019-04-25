@@ -1,24 +1,22 @@
 import { IEvent, IMember } from 'IEvent';
 import config from '../../config';
+import { User, user } from './../UserClass/index';
+import { ResourceFactory } from './../../global/ResourceFactory';
+import { ResourcePubSub } from './../../global/ResourcePubSub';
 
+@ResourceFactory()
+@ResourcePubSub
 export class EventClass {
 	private static baseUrl: string = config.baseUrl;
 
-	private static token: string = (() => {
-		const tokenTest = RegExp(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/);
-		const token = localStorage.getItem('token');
-		return tokenTest.test(token) ? token : '';
-	})();
-
 	private static headers: any = {
 		'Content-Type': 'application/json; charset=utf-8',
-		'Authorization': `${EventClass.token}`
+		'Authorization': `${user.token}`
 	}
 
 	private static checkForToken(res: Response): void {
 		const token: string = res.headers.get('Authorization');
-		localStorage.setItem('token', token);
-		EventClass.token = token;
+		if (User.tokenTest(token)) user.token = token;
 	}
 
 	private static async fetch(method: string, urlStem: string, body?: any): Promise<IEvent[] | IEvent> {
@@ -28,7 +26,7 @@ export class EventClass {
 			body: body ? JSON.stringify(body) : null
 		});
 
-		if (!EventClass.token) EventClass.checkForToken(res);
+		if (!user.token) EventClass.checkForToken(res);
 		if (res.status > 299) throw { status: res.status, msg: await res.text() };
 
 		return await res.json();
@@ -64,7 +62,9 @@ export class EventClass {
 	public tags: IEvent['tags'] = [];
 	public webhook: IEvent['webhook'];
 	private socket: any;
-	private subscribers: Array<Function> = [];
+	private publish: Function;
+	public subscribe: Function;
+	public unsubscribe: Function;
 
 	constructor(event: IEvent) {
 		this.syncEvent(event);
@@ -86,18 +86,6 @@ export class EventClass {
 	public getSocket() {
 		return this.socket || this.createSocket();
 	};
-
-	private publish() {
-		this.subscribers.forEach(sub => sub(this))
-	}
-
-	public subscribe(sub: Function): void {
-		this.subscribers.push(sub);
-	}
-
-	public unsubscribe(sub: Function): void {
-		this.subscribers = this.subscribers.filter(_sub => _sub !== sub);
-	}
 
 	public async updateEvent(event: IEvent): Promise<EventClass> {
 		const updatedEvent = await EventClass.fetch('PUT', `/events/${event.event_id}`, event) as IEvent;
