@@ -1,17 +1,21 @@
 import { IEvent, IMember } from 'IEvent';
 import config from '../../config';
 import { User, user } from './../UserClass/index';
-import { ResourceFactory } from './../../global/ResourceFactory';
-import { ResourcePubSub } from './../../global/ResourcePubSub';
+import { ResourceFactory } from './../../decorators/ResourceFactory';
+import { ResourcePubSub } from './../../decorators/ResourcePubSub';
+import { ToJSON } from './../../decorators/ToJSON';
 
 @ResourceFactory()
+@ToJSON(['event_id', 'max_party', 'title', 'start_time', 'party', 'owner_id', 'tags', 'webhook'])
 @ResourcePubSub
 export class EventClass {
 	private static baseUrl: string = config.baseUrl;
 
-	private static headers: any = {
-		'Content-Type': 'application/json; charset=utf-8',
-		'Authorization': `${user.token}`
+	private static get headers(): any {
+		return {
+			'Content-Type': 'application/json; charset=utf-8',
+			'Authorization': `${user.token}`
+		}
 	}
 
 	private static checkForToken(res: Response): void {
@@ -61,10 +65,11 @@ export class EventClass {
 	public owner_id: IEvent['owner_id'];
 	public tags: IEvent['tags'] = [];
 	public webhook: IEvent['webhook'];
-	private socket: any;
-	private publish: Function;
 	public subscribe: Function;
 	public unsubscribe: Function;
+	public toJSON: () => IEvent;
+	private socket: any;
+	private publish: Function;
 
 	constructor(event: IEvent) {
 		this.syncEvent(event);
@@ -107,18 +112,5 @@ export class EventClass {
 		const updatedEvent = await EventClass.fetch('DELETE', `/events/${this.event_id}/party/${slotId}`) as IEvent;
 		this.syncEvent(updatedEvent);
 		return this;
-	}
-
-	public toJSON(): IEvent {
-		return {
-			event_id: this.event_id,
-			max_party: this.max_party,
-			title: this.title,
-			start_time: this.start_time,
-			party: this.party,
-			owner_id: this.owner_id,
-			tags: this.tags,
-			webhook: this.webhook
-		}
 	}
 }

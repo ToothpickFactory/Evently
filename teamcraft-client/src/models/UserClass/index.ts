@@ -1,5 +1,8 @@
-import { ResourcePubSub } from './../../global/ResourcePubSub';
+import { ResourcePubSub } from './../../decorators/ResourcePubSub';
+import { ToJSON } from './../../decorators/ToJSON';
+import { IUser } from './../../types/IUser';
 
+@ToJSON(['user_id'])
 @ResourcePubSub
 export class User {
 	public static tokenTest(token: string) {
@@ -14,6 +17,8 @@ export class User {
 	};
 
 	private _token: string;
+	public user_id: string;
+	public toJSON: () => IUser;
 
 	constructor() {
 		if (this.token) this.spreadToken();
