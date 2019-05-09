@@ -15,14 +15,19 @@ export class EventForm {
 
 		const event = {
 			title: e.target.elements.title.value,
-			start_time: new Date(e.target.elements.start_time.value).getTime(),
+			start_time: new Date(e.target.elements.start_time.value),
 			max_party: e.target.elements.max_party.value
 		}
 
 		e.target.reset();
-		const newEvent = await EventClass.createEvent(event);
+		try {
+			const newEvent = await EventClass.createEvent(event);
+			window.location.assign(`/e/${newEvent.event_id}`);
+		} catch (e) {
+			// TODO: Display to the user what went wrong
+			console.error(e);
+		}
 		btn.disabled = false;
-		window.location.assign(`/e/${newEvent.event_id}`);
 	}
 
 	componentDidLoad() {

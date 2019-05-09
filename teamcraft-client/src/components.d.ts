@@ -20,20 +20,20 @@ export namespace Components {
   interface AppRootAttributes extends StencilHTMLAttributes {}
 
   interface CountDown {
-    'timestamp': number;
+    'timestamp': Date;
   }
   interface CountDownAttributes extends StencilHTMLAttributes {
-    'timestamp'?: number;
+    'timestamp'?: Date;
   }
 
   interface CreateEventPage {}
   interface CreateEventPageAttributes extends StencilHTMLAttributes {}
 
   interface DateTime {
-    'timestamp': number;
+    'timestamp': Date;
   }
   interface DateTimeAttributes extends StencilHTMLAttributes {
-    'timestamp'?: number;
+    'timestamp'?: Date;
   }
 
   interface EventCard {

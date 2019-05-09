@@ -1,29 +1,30 @@
 import { Component, Prop, State } from '@stencil/core';
 
 @Component({
-  tag: 'count-down',
-  styleUrl: 'count-down.scss',
-  shadow: false
+	tag: 'count-down',
+	styleUrl: 'count-down.scss',
+	shadow: false
 })
 export class CountDown {
-  @Prop() timestamp: number;
-  @State() time: string;
+	@Prop() timestamp: Date;
+	@State() time: string;
 
-  private updateTime = () => {
-    const now = Date.now();
-    const diff = this.timestamp - now;
-    const days = Math.floor(diff / 8.64e+7);
-    const hours = Math.floor(diff / 3.6e+6) % 24;
-    const minutes = Math.floor(diff / 60000) % 60;
-    this.time = `D${days} H${hours} M${minutes}`;
-  }
+	private updateTime = () => {
+		const now = Date.now();
+		const endTime = new Date(this.timestamp).getTime();
+		const diff = endTime - now;
+		const days = Math.floor(diff / 8.64e+7);
+		const hours = Math.floor(diff / 3.6e+6) % 24;
+		const minutes = Math.floor(diff / 60000) % 60;
+		this.time = `D${days} H${hours} M${minutes}`;
+	}
 
-  componentWillLoad() {
-    this.updateTime();
-    setInterval(this.updateTime, 60000);
-  }
+	componentWillLoad() {
+		this.updateTime();
+		setInterval(this.updateTime, 60000);
+	}
 
-  render() {
-    return this.time
-  }
+	render() {
+		return this.time
+	}
 }

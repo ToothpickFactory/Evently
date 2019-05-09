@@ -18,6 +18,7 @@ export class User {
 
 	private _token: string;
 	public user_id: string;
+	public subscribe: Function;
 	public toJSON: () => IUser;
 
 	constructor() {

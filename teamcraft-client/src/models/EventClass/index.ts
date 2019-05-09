@@ -38,7 +38,6 @@ export class EventClass {
 
 	private static eventSanitize(event: IEvent): void {
 		event.max_party = +event.max_party;
-		event.start_time = +event.start_time;
 	}
 
 	public static async getEvents(): Promise<EventClass[]> {

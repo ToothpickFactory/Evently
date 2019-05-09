@@ -10,6 +10,6 @@ export interface IEvent {
 	party?: IMember[];
 	tags?: string[];
 	max_party?: number | null;
-	start_time?: number | null;
+	start_time?: string | null;
 	webhook?: string | null;
 }

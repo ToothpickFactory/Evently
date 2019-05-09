@@ -2,6 +2,7 @@ import { Component, Prop, State } from '@stencil/core';
 import { EventClass } from '../../models/EventClass';
 import { IEvent, IMember } from 'IEvent';
 import { user, User } from '../../models/UserClass';
+import { IUser } from './../../types/IUser';
 
 @Component({
 	tag: 'event-card',
@@ -12,7 +13,9 @@ export class EventCard {
 	@Prop() eventId: string;
 	@State() event: IEvent;
 	private eventClass: EventClass;
-	private user: User = user;
+	private userClass: User = user;
+	private user: IUser = user.toJSON();
+	private userUnsubscribe: Function = this.userClass.subscribe((userJSON: IUser) => this.user = userJSON);
 
 	async componentWillLoad() {
 		await this.bootEvent();
@@ -20,6 +23,7 @@ export class EventCard {
 
 	componentDidUnload() {
 		this.eventClass.unsubscribe(this.onEventUpdated);
+		this.userUnsubscribe();
 	}
 
 	async bootEvent() {

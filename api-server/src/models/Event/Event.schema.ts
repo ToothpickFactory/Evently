@@ -37,7 +37,7 @@ export const EventSchema = {
 		},
 		start_time: {
 			type: [
-				'number',
+				'string',
 				'null'
 			]
 		},
