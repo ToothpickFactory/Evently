@@ -72,3 +72,5 @@ package-lock.json
 
 # Mac Files
 .DS_Store
+
+firebase/public
