@@ -1,23 +1,26 @@
 {
-  "name": "teamcraft-client",
-  "private": true,
-  "version": "0.0.1",
-  "description": "Stencil App Starter",
-  "engines": {
-    "node": "10"
-  },
-  "scripts": {
-    "build": "stencil build",
-    "start": "stencil build --dev --watch --serve",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll"
-  },
-  "dependencies": {
-    "@stencil/core": "0.18.1",
-    "@stencil/router": "~0.3.1",
-    "@stencil/sass": "^0.1.1",
-    "flatpickr": "^4.5.7"
-  },
-  "license": "MIT",
-  "devDependencies": {}
+	"name": "teamcraft-client",
+	"private": true,
+	"version": "0.0.1",
+	"description": "Stencil App Starter",
+	"engines": {
+		"node": "10"
+	},
+	"scripts": {
+		"build": "stencil build",
+		"start": "stencil build --dev --watch --serve",
+		"test": "stencil test --spec --e2e",
+		"test.watch": "stencil test --spec --e2e --watchAll",
+		"deploy": "cd ../firebase && npm run deploy && cd ../teamcraft-client"
+	},
+	"dependencies": {
+		"@stencil/core": "0.18.1",
+		"@stencil/router": "~0.3.1",
+		"@stencil/sass": "^0.1.1",
+		"flatpickr": "^4.5.7"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"workbox-build": "3.4.1"
+	}
 }
