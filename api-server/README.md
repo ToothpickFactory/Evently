@@ -23,5 +23,7 @@
 + It's advised that you symlink the fullchain.pem and privkey.pem files to this folder. Makes renewal easier.
 + Renew HTTPS certs every 3 months - 
 + + In .env change PORT to 80 and MODE to HTTP
++ + pm2 restart 0
 + + letsencrypt renew
 + + Change PORT back to 443 and MODE to HTTPS
++ + pm2 restart 0
